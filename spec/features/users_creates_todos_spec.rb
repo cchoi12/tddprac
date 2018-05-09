@@ -1,14 +1,16 @@
 require 'rails_helper'
 
-feature 'User creates todo' do
-  scenario 'successfully' do
-    visit root_path
+feature "User creates todo" do
+  scenario "successfully" do
+    sign_in
 
     click_on 'Add a new todo'
-    fill_in 'Title', with: 'Clean my Laundry'
+
+    expect(current_path).to eq(new_todo_path)
+    fill_in 'Title', with: 'Test Todo'
     click_on 'Submit'
 
-    # expect(page).to have_content 'Clean my Laundry'
-    expect(page).to have_css '.todos li', text: 'Clean my Laundry'
+    expect(current_path).to eq(root_path)
+    expect(page).to have_css '.todos li', text: 'Test Todo'
   end
 end
